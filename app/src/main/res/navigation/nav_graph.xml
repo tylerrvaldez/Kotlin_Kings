@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/amphibianListFragment"
         android:name="com.example.amphibians.ui.AmphibianListFragment"
-        android:label="AmphibianListFragment" >
+        android:label="COVID Data" >
         <action
             android:id="@+id/action_amphibianListFragment_to_amphibianDetailFragment"
             app:destination="@id/amphibianDetailFragment" />
