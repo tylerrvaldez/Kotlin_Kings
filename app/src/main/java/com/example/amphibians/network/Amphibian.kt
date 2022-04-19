@@ -15,13 +15,23 @@
  */
 package com.example.amphibians.network
 
+import com.squareup.moshi.Json
+
 /**
  * This data class defines an Amphibian which includes the amphibian's name, the type of
  * amphibian, and a brief description of the amphibian.
  * The property names of this data class are used by Moshi to match the names of values in JSON.
  */
 data class Amphibian(
-    val name: String,
-    val type: String,
-    val description: String
+    @Json(name = "province") val province: String,
+    @Json(name = "county") val county: String,
+    @Json(name = "stats") val stats: Stats,
+    @Json(name = "updatedAt") val updatedAt: String
+
+)
+
+data class Stats(
+    @Json(name = "confirmed") val confirmed: String,
+    @Json(name = "deaths") val deaths: String,
+    @Json(name = "recovered") val recovered: String? = null
 )

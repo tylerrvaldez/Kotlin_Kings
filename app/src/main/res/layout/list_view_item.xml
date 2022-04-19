@@ -44,7 +44,7 @@
             android:padding="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="18sp"
-            android:text="@{amphibian.name}"
+            android:text="@{amphibian.county}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Frog" />

@@ -36,6 +36,7 @@ class AmphibianDetailFragment : Fragment() {
     ): View? {
 
         val binding = FragmentAmphibianDetailBinding.inflate(inflater)
+
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 

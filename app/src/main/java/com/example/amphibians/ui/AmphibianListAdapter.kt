@@ -34,6 +34,7 @@ class AmphibianListAdapter(val clickListener: AmphibianListener) :
         var binding: ListViewItemBinding
         ) : RecyclerView.ViewHolder(binding.root){
         fun bind(clickListener: AmphibianListener, amphibian: Amphibian) {
+
             binding.amphibian = amphibian
             binding.clickListener = clickListener
             binding.executePendingBindings()
@@ -43,11 +44,11 @@ class AmphibianListAdapter(val clickListener: AmphibianListener) :
     companion object DiffCallback : DiffUtil.ItemCallback<Amphibian>() {
 
         override fun areItemsTheSame(oldItem: Amphibian, newItem: Amphibian): Boolean {
-            return oldItem.name == newItem.name
+            return oldItem.province == newItem.province
         }
 
         override fun areContentsTheSame(oldItem: Amphibian, newItem: Amphibian): Boolean {
-            return oldItem.type == newItem.type && oldItem.description == newItem.description
+            return oldItem.county == newItem.county && oldItem.updatedAt == newItem.updatedAt && oldItem.stats == newItem.stats
         }
 
     }
@@ -61,6 +62,7 @@ class AmphibianListAdapter(val clickListener: AmphibianListener) :
 
     override fun onBindViewHolder(holder: AmphibianViewHolder, position: Int) {
         val amphibian = getItem(position)
+
         holder.bind(clickListener, amphibian)
     }
 }
