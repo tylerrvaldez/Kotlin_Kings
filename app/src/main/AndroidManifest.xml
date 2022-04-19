@@ -27,6 +27,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Amphibians">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyALyqhjF7EO0mcQ5HIQ0qRY2uFm_DtDcXA" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
