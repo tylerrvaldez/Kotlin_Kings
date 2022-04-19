@@ -17,40 +17,77 @@ package com.example.amphibians
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.activity_main.*
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import androidx.navigation.ui.NavigationUI.setupWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.example.amphibians.ui.AmphibianListFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+//
+//        val firstFragment= AmphibianListFragment()
+//        val secondFragment=SecondFragment()
+//        val thirdFragment=ThirdFragment()
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
+        setupActionBarWithNavController(this, navController)
 
-        val firstFragment=FirstFragment()
-        val secondFragment=SecondFragment()
-        val thirdFragment=ThirdFragment()
-
-        setCurrentFragment(firstFragment)
-
-        bottomNavigationView.setOnNavigationItemSelectedListener {
-            when(it.itemId){
-                R.id.home->setCurrentFragment(firstFragment)
-                R.id.person->setCurrentFragment(secondFragment)
-                R.id.settings->setCurrentFragment(thirdFragment)
-
-            }
-            true
-        }
-
+        val BottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        BottomNavigationView.setupWithNavController(navController)
+//
+//        findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+//            .setupWithNavController(navController)
     }
 
-    private fun setCurrentFragment(fragment:Fragment)=
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragment,fragment)
-            commit()
-        }
+//        val navHostFragment =
+//            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+//        val navController = navHostFragment.navController
+//        findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+//            .setupWithNavController(navController)
+
+//        setCurrentFragment(firstFragment)
+//
+//        bottomNavigationView.setOnNavigationItemSelectedListener {
+//            when(it.itemId){
+//                R.id.home->setCurrentFragment(firstFragment)
+//                R.id.person->setCurrentFragment(secondFragment)
+//                R.id.settings->setCurrentFragment(thirdFragment)
+//
+//            }
+//            true
+//        }
+
+//        navController.addOnDestinationChangedListener { _, destination, _ ->
+//            if(destination.id == R.id.home) {
+//                toolbar.visibility = View.GONE
+//                bottomNavigationView.visibility = View.GONE
+//            } else {
+//                toolbar.visibility = View.VISIBLE
+//                bottomNavigationView.visibility = View.VISIBLE
+//            }
+//        }
+
+
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+//    private fun setCurrentFragment(fragment:Fragment)=
+//        supportFragmentManager.beginTransaction().apply {
+//            replace(R.id.flFragment,fragment)
+//            commit()
+//        }
 
 }
