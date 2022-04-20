@@ -26,7 +26,8 @@ data class Amphibian(
     @Json(name = "province") val province: String,
     @Json(name = "county") val county: String,
     @Json(name = "stats") val stats: Stats,
-    @Json(name = "updatedAt") val updatedAt: String
+    @Json(name = "updatedAt") val updatedAt: String,
+    @Json(name = "coordinates") val coordinates: Coordinates
 
 )
 
@@ -35,3 +36,10 @@ data class Stats(
     @Json(name = "deaths") val deaths: String,
     @Json(name = "recovered") val recovered: String? = null
 )
+
+data class Coordinates(
+    @Json(name = "latitude") val latitude: String,
+    @Json(name = "longitude") val longitude: String
+
+)
+

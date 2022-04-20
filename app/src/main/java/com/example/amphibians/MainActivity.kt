@@ -34,10 +34,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//
-//        val firstFragment= AmphibianListFragment()
-//        val secondFragment=SecondFragment()
-//        val thirdFragment=ThirdFragment()
+
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
@@ -45,38 +42,9 @@ class MainActivity : AppCompatActivity() {
 
         val BottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         BottomNavigationView.setupWithNavController(navController)
-//
-//        findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-//            .setupWithNavController(navController)
+
     }
 
-//        val navHostFragment =
-//            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-//        val navController = navHostFragment.navController
-//        findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-//            .setupWithNavController(navController)
-
-//        setCurrentFragment(firstFragment)
-//
-//        bottomNavigationView.setOnNavigationItemSelectedListener {
-//            when(it.itemId){
-//                R.id.home->setCurrentFragment(firstFragment)
-//                R.id.person->setCurrentFragment(secondFragment)
-//                R.id.settings->setCurrentFragment(thirdFragment)
-//
-//            }
-//            true
-//        }
-
-//        navController.addOnDestinationChangedListener { _, destination, _ ->
-//            if(destination.id == R.id.home) {
-//                toolbar.visibility = View.GONE
-//                bottomNavigationView.visibility = View.GONE
-//            } else {
-//                toolbar.visibility = View.VISIBLE
-//                bottomNavigationView.visibility = View.VISIBLE
-//            }
-//        }
 
 
 
@@ -84,10 +52,5 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-//    private fun setCurrentFragment(fragment:Fragment)=
-//        supportFragmentManager.beginTransaction().apply {
-//            replace(R.id.flFragment,fragment)
-//            commit()
-//        }
 
 }
