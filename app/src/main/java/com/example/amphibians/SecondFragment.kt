@@ -23,7 +23,6 @@ import com.google.maps.android.heatmaps.WeightedLatLng
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 
-
 class SecondFragment : Fragment(), OnMapReadyCallback {
     private val viewModel: AmphibianViewModel by activityViewModels()
 
