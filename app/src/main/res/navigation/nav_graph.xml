@@ -31,7 +31,7 @@
     <fragment
         android:id="@+id/amphibianDetailFragment"
         android:name="com.example.amphibians.ui.AmphibianDetailFragment"
-        android:label="fragment_amphibian_detail"
+        android:label="County Info"
         tools:layout="@layout/fragment_amphibian_detail" />
 
     <fragment
