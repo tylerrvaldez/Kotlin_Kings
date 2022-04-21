@@ -28,9 +28,9 @@ import com.google.android.gms.tasks.OnCompleteListener
 
 class ThirdFragment : Fragment() {
     // Initialize variables
-    val btLocation: Button? = null
-    val tvLatitude: TextView? = null
-    val tvLongitude: TextView? = null
+    var btLocation: Button? = null
+    var tvLatitude: TextView? = null
+    var tvLongitude: TextView? = null
     var client: FusedLocationProviderClient? = null
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,9 +44,9 @@ class ThirdFragment : Fragment() {
         )
 
         // Assign variable
-        val btLocation: Button = view.findViewById(R.id.bt_location)
-        val tvLatitude: TextView = view.findViewById(R.id.tv_latitude)
-        val tvLongitude: TextView = view.findViewById(R.id.tv_longitude)
+        btLocation = view.findViewById(R.id.bt_location) as Button
+        tvLatitude = view.findViewById(R.id.tv_latitude) as TextView
+        tvLongitude = view.findViewById(R.id.tv_longitude) as TextView
 
         // Initialize location client
         client = activity?.let {
@@ -55,7 +55,7 @@ class ThirdFragment : Fragment() {
                     it
                 )
         }
-        btLocation.setOnClickListener(
+        btLocation?.setOnClickListener(
             View.OnClickListener {
                 // check condition
                 if (ContextCompat.checkSelfPermission(
