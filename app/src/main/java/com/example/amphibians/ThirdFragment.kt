@@ -25,13 +25,24 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.OnCompleteListener
+import android.location.Geocoder
+import androidx.lifecycle.LiveData
+import com.example.amphibians.network.Amphibian
+import java.lang.StringBuilder
+import java.util.*
+
+
 
 class ThirdFragment : Fragment() {
     // Initialize variables
-    var btLocation: Button? = null
+//    var btLocation: Button? = null
     var tvLatitude: TextView? = null
     var tvLongitude: TextView? = null
+    var county: TextView? = null
     var client: FusedLocationProviderClient? = null
+    var api_county: String = ""
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,9 +55,10 @@ class ThirdFragment : Fragment() {
         )
 
         // Assign variable
-        btLocation = view.findViewById(R.id.bt_location) as Button
+//        btLocation = view.findViewById(R.id.bt_location) as Button
         tvLatitude = view.findViewById(R.id.tv_latitude) as TextView
         tvLongitude = view.findViewById(R.id.tv_longitude) as TextView
+        county = view.findViewById(R.id.county) as TextView
 
         // Initialize location client
         client = activity?.let {
@@ -55,8 +67,8 @@ class ThirdFragment : Fragment() {
                     it
                 )
         }
-        btLocation?.setOnClickListener(
-            View.OnClickListener {
+//        btLocation?.setOnClickListener(
+//            View.OnClickListener {
                 // check condition
                 if (ContextCompat.checkSelfPermission(
                         requireActivity(),
@@ -83,7 +95,7 @@ class ThirdFragment : Fragment() {
                         100
                     )
                 }
-            })
+//            })
 
         // Return view
         return view
@@ -150,6 +162,14 @@ class ThirdFragment : Fragment() {
                             // set longitude
                             tvLongitude!!.text = location
                                 .longitude.toString()
+                            val geocoder = Geocoder(getActivity(), Locale.getDefault())
+                            val addresses = geocoder.getFromLocation(location.latitude,location.longitude,1);
+                            county!!.text = addresses.get(0).getSubAdminArea()
+                            api_county = county!!.text.toString()
+                            api_county = api_county.dropLast(7)
+//                            Log.d("list","***************************************")
+//                            Log.d("list", api_county);
+
                         } else {
                             // When location result is null
                             // initialize location request
@@ -202,4 +222,6 @@ class ThirdFragment : Fragment() {
                 )
             }
         }
+
+
 }

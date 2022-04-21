@@ -20,6 +20,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+//import com.example.amphibians.ThirdFragment.api_county
 
 // TODO: Create a property for the base URL provided in the codelab
 private const val BASE_URL = "https://corona.lmao.ninja/v2/jhucsse/"
@@ -40,6 +41,7 @@ interface AmphibianApiService {
     @GET("counties")
     suspend fun getData():List<Amphibian>
 }
+
 
 // TODO: Create an object that provides a lazy-initialized retrofit service
 object AmphibianApi{
