@@ -63,8 +63,8 @@ class ThirdFragment : Fragment() {
 
         // Assign variable
 //        btLocation = view.findViewById(R.id.bt_location) as Button
-        tvLatitude = view.findViewById(R.id.tv_latitude) as TextView
-        tvLongitude = view.findViewById(R.id.tv_longitude) as TextView
+//        tvLatitude = view.findViewById(R.id.tv_latitude) as TextView
+//        tvLongitude = view.findViewById(R.id.tv_longitude) as TextView
         county = view.findViewById(R.id.county) as TextView
         confirmed = view.findViewById(R.id.confirmed2) as TextView
         deaths = view.findViewById(R.id.deaths2) as TextView
@@ -174,11 +174,11 @@ class ThirdFragment : Fragment() {
                         if (location != null) {
                             // When location result is not
                             // null set latitude
-                            tvLatitude!!.text = location
-                                .latitude.toString()
-                            // set longitude
-                            tvLongitude!!.text = location
-                                .longitude.toString()
+//                            tvLatitude!!.text = location
+//                                .latitude.toString()
+//                            // set longitude
+//                            tvLongitude!!.text = location
+//                                .longitude.toString()
                             val geocoder = Geocoder(getActivity(), Locale.getDefault())
                             val addresses = geocoder.getFromLocation(location.latitude,location.longitude,1);
                             county!!.text = addresses.get(0).getSubAdminArea()
