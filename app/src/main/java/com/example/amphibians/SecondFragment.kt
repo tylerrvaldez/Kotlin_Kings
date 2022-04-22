@@ -55,9 +55,9 @@ class SecondFragment : Fragment(), OnMapReadyCallback {
     private fun generateHeatMapData(): MutableList<WeightedLatLng> {
         var data :MutableList<WeightedLatLng> = mutableListOf()
         viewModel.getAmphibianList()
-        Log.d("list","***************************************")
+//        Log.d("list","***************************************")
         val temp = viewModel.amphibians.value
-        Log.d("list", temp.toString());
+//        Log.d("list", temp.toString());
         if (temp != null) {
             for (i in temp){
                 if (i.coordinates.latitude != "" && i.coordinates.longitude != "") {
@@ -65,7 +65,6 @@ class SecondFragment : Fragment(), OnMapReadyCallback {
                     val lat = coord.latitude.toDouble()
                     val lon = coord.longitude.toDouble()
                     val density = i.stats.confirmed.toDouble()
-
 
                     if (density != 0.0) {
                         val weightedLatLng = WeightedLatLng(LatLng(lat, lon), density)
@@ -76,8 +75,6 @@ class SecondFragment : Fragment(), OnMapReadyCallback {
 
             }
         }
-        Log.d("list","***************************************")
-        Log.d("list", data.toString());
 
         return data
 

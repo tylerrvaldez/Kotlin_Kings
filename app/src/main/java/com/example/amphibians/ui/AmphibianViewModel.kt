@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.amphibians.network.Amphibian
 import com.example.amphibians.network.AmphibianApi
+import com.example.amphibians.network.DetailApi
 import kotlinx.coroutines.launch
 
 enum class AmphibianApiStatus {LOADING, ERROR, DONE}
@@ -56,10 +57,12 @@ class AmphibianViewModel : ViewModel() {
                     if (i.province == "Texas") res += i
                 }
                 _amphibians.value = res
+                _locations.value = DetailApi.retrofitService.getOneData()
                 _status.value = AmphibianApiStatus.DONE
             } catch (e: Exception) {
-                _status.value = AmphibianApiStatus.ERROR
                 _amphibians.value = listOf()
+                _locations.value = listOf()
+                _status.value = AmphibianApiStatus.ERROR
             }
         }
     }

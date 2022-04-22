@@ -26,19 +26,29 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.OnCompleteListener
 import android.location.Geocoder
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import com.example.amphibians.network.Amphibian
+import com.example.amphibians.ui.AmphibianViewModel
 import java.lang.StringBuilder
 import java.util.*
-
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
+import retrofit2.http.GET
 
 
 class ThirdFragment : Fragment() {
     // Initialize variables
 //    var btLocation: Button? = null
+
+    private val viewModel: AmphibianViewModel by activityViewModels()
+
     var tvLatitude: TextView? = null
     var tvLongitude: TextView? = null
     var county: TextView? = null
+    var confirmed: TextView? = null
+    var deaths: TextView? = null
+    var last_update: TextView? = null
     var client: FusedLocationProviderClient? = null
     var api_county: String = ""
 
@@ -49,16 +59,18 @@ class ThirdFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Initialize view
-        val view: View = inflater.inflate(
-            R.layout.fragment_third,
-            container, false
-        )
+        val view: View = inflater.inflate(R.layout.fragment_third, container, false)
 
         // Assign variable
 //        btLocation = view.findViewById(R.id.bt_location) as Button
         tvLatitude = view.findViewById(R.id.tv_latitude) as TextView
         tvLongitude = view.findViewById(R.id.tv_longitude) as TextView
         county = view.findViewById(R.id.county) as TextView
+        confirmed = view.findViewById(R.id.confirmed2) as TextView
+        deaths = view.findViewById(R.id.deaths2) as TextView
+        last_update = view.findViewById(R.id.description2) as TextView
+
+
 
         // Initialize location client
         client = activity?.let {
@@ -84,7 +96,8 @@ class ThirdFragment : Fragment() {
                     // When permission is granted
                     // Call method
                     currentLocation
-                } else {
+                }
+                else {
                     // When permission is not granted
                     // Call method
                     requestPermissions(
@@ -101,6 +114,7 @@ class ThirdFragment : Fragment() {
         return view
     }
 
+
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<String>,
         grantResults: IntArray
@@ -115,6 +129,7 @@ class ThirdFragment : Fragment() {
         ) {
             // When permission are granted
             // Call  method
+
             currentLocation
         } else {
             // When permission are denied
@@ -128,6 +143,8 @@ class ThirdFragment : Fragment() {
                 .show()
         }
     }
+
+
 
     @get:SuppressLint("MissingPermission")
     private val currentLocation:
@@ -167,8 +184,15 @@ class ThirdFragment : Fragment() {
                             county!!.text = addresses.get(0).getSubAdminArea()
                             api_county = county!!.text.toString()
                             api_county = api_county.dropLast(7)
-//                            Log.d("list","***************************************")
-//                            Log.d("list", api_county);
+
+
+                            viewModel.getAmphibianList()
+                            val temp = viewModel.locations.value!![0]
+                            confirmed!!.text = temp.stats.confirmed
+                            deaths!!.text = temp.stats.deaths
+                            last_update!!.text = temp.updatedAt
+
+
 
                         } else {
                             // When location result is null
@@ -222,6 +246,10 @@ class ThirdFragment : Fragment() {
                 )
             }
         }
+    fun get_api_county(): String{
+        return api_county
+    }
+
 
 
 }
