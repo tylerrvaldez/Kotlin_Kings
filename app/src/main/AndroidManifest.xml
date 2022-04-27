@@ -24,11 +24,13 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_person"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_person"
         android:supportsRtl="true"
         android:theme="@style/Theme.Amphibians">
+
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyALyqhjF7EO0mcQ5HIQ0qRY2uFm_DtDcXA" />

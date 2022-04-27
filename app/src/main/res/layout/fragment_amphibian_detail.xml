@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="@{viewModel.amphibian.province}"
+            android:text="@{viewModel.amphibian.county}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -56,11 +56,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="Updated At"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:text="Last Updated At"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/name"
-            />
+            app:layout_constraintTop_toBottomOf="@id/name" />
 
         <TextView
             android:id="@+id/description2"
@@ -68,21 +68,21 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="@{viewModel.amphibian.updatedAt}"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/description"
-            />
+            app:layout_constraintTop_toBottomOf="@id/description" />
+
 
         <TextView
             android:id="@+id/confirmed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="Confirmed"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:text="Totoal Confirmed Covid-19 Cases"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/description2"
-            />
+            app:layout_constraintTop_toBottomOf="@id/description2" />
 
         <TextView
             android:id="@+id/confirmed2"
@@ -90,21 +90,20 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="@{viewModel.amphibian.stats.confirmed}"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/confirmed"
-            />
+            app:layout_constraintTop_toBottomOf="@id/confirmed" />
 
         <TextView
             android:id="@+id/deaths"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="Death"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:text="Total Death Covid-19 Cases"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/confirmed2"
-            />
+            app:layout_constraintTop_toBottomOf="@id/confirmed2" />
 
         <TextView
             android:id="@+id/deaths2"
@@ -112,10 +111,9 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="@{viewModel.amphibian.stats.deaths}"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/deaths"
-            />
+            app:layout_constraintTop_toBottomOf="@id/deaths" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

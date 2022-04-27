@@ -46,7 +46,7 @@ interface AmphibianApiService {
 
 
 interface DetailApiService {
-    @GET("counties/Travis")
+    @GET("counties/")
     suspend fun getOneData():List<Amphibian>
 }
 

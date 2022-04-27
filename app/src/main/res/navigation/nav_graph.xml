@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/amphibianListFragment"
         android:name="com.example.amphibians.ui.AmphibianListFragment"
-        android:label="COVID Data" >
+        android:label="COVID Data At TX" >
         <action
             android:id="@+id/action_amphibianListFragment_to_amphibianDetailFragment"
             app:destination="@id/amphibianDetailFragment" />
@@ -37,12 +37,12 @@
     <fragment
         android:id="@+id/second"
         android:name="com.example.amphibians.SecondFragment"
-        android:label="Map"
+        android:label="Heatmap"
         tools:layout="@layout/fragment_second" />
 
     <fragment
         android:id="@+id/third"
         android:name="com.example.amphibians.ThirdFragment"
-        android:label="Details"
+        android:label="My County"
         tools:layout="@layout/fragment_third" />
 </navigation>
