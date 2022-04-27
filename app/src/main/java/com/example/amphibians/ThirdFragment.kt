@@ -172,26 +172,29 @@ class ThirdFragment : Fragment() {
                         val location = task.result
                         // Check condition
                         if (location != null) {
-                            // When location result is not
-                            // null set latitude
-//                            tvLatitude!!.text = location
-//                                .latitude.toString()
-//                            // set longitude
-//                            tvLongitude!!.text = location
-//                                .longitude.toString()
-                            val geocoder = Geocoder(getActivity(), Locale.getDefault())
-                            val addresses = geocoder.getFromLocation(location.latitude,location.longitude,1);
-                            county!!.text = addresses.get(0).getSubAdminArea()
-                            api_county = county!!.text.toString()
-                            api_county = api_county.dropLast(7)
+                            try {
+                                val geocoder = Geocoder(getActivity(), Locale.getDefault())
+                                val addresses = geocoder.getFromLocation(
+                                    location.latitude,
+                                    location.longitude,
+                                    1
+                                )
+                                county!!.text = addresses.get(0).getSubAdminArea()
+
+                                api_county = county!!.text.toString()
+                                api_county = api_county.dropLast(7)
+                            }
+                            catch(e: Exception){
+                                county!!.text = "Travis"
+                                api_county = "Travis"
+                            }
 
 
-                            viewModel.getAmphibianList()
-                            val temp = viewModel.locations.value!![0]
+                            viewModel.getAmphibianList(api_county)
+                            val temp = viewModel.amphibians.value!![0]
                             confirmed!!.text = temp.stats.confirmed
                             deaths!!.text = temp.stats.deaths
                             last_update!!.text = temp.updatedAt
-
 
 
                         } else {

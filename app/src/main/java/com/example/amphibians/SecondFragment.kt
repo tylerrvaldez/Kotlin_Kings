@@ -54,7 +54,7 @@ class SecondFragment : Fragment(), OnMapReadyCallback {
 
     private fun generateHeatMapData(): MutableList<WeightedLatLng> {
         var data :MutableList<WeightedLatLng> = mutableListOf()
-        viewModel.getAmphibianList()
+        viewModel.getAmphibianList("")
 //        Log.d("list","***************************************")
         val temp = viewModel.amphibians.value
 //        Log.d("list", temp.toString());

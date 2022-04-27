@@ -23,6 +23,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 // TODO: Create a property for the base URL provided in the codelab
 private const val BASE_URL = "https://corona.lmao.ninja/v2/jhucsse/"
@@ -40,15 +41,15 @@ private val retrofit = Retrofit.Builder()
 
 interface AmphibianApiService {
     // TODO: Declare a suspended function to get the list of amphibians
-    @GET("counties")
-    suspend fun getData():List<Amphibian>
+    @GET("counties/{api_county}")
+    suspend fun getData(@Path("api_county")  api_county: String):List<Amphibian>
 }
 
 
-interface DetailApiService {
-    @GET("counties/")
-    suspend fun getOneData():List<Amphibian>
-}
+//interface DetailApiService {
+//    @GET("counties/{api_county}")
+//    suspend fun getOneData(@Path("api_county")  api_county: String):List<Amphibian>
+//}
 
 
 
@@ -57,7 +58,7 @@ object AmphibianApi{
     val retrofitService: AmphibianApiService by lazy { retrofit.create(AmphibianApiService::class.java) }
 }
 
-object DetailApi{
-    val retrofitService: DetailApiService by lazy { retrofit.create(DetailApiService::class.java) }
-}
+//object DetailApi{
+//    val retrofitService: DetailApiService by lazy { retrofit.create(DetailApiService::class.java) }
+//}
 
