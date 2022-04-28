@@ -41,8 +41,8 @@ private val retrofit = Retrofit.Builder()
 
 interface AmphibianApiService {
     // TODO: Declare a suspended function to get the list of amphibians
-    @GET("counties/{api_county}")
-    suspend fun getData(@Path("api_county")  api_county: String):List<Amphibian>
+    @GET("counties")
+    suspend fun getData():List<Amphibian>
 }
 
 

@@ -24,7 +24,7 @@ import com.example.amphibians.network.Amphibian
 import com.example.amphibians.network.AmphibianApi
 //import com.example.amphibians.network.DetailApi
 import kotlinx.coroutines.launch
-
+import kotlinx.coroutines.*
 enum class AmphibianApiStatus {LOADING, ERROR, DONE}
 
 class AmphibianViewModel : ViewModel() {
@@ -47,24 +47,26 @@ class AmphibianViewModel : ViewModel() {
     // TODO: Create a function that gets a list of amphibians from the api service and sets the
     //  status via a Coroutine
 
-     fun  getAmphibianList(api_county:String){
+     fun  getAmphibianList(){
         viewModelScope.launch {
             _status.value = AmphibianApiStatus.LOADING
             try {
-                Log.d("no","***************************************")
-                val temp = AmphibianApi.retrofitService.getData(api_county)
+//                Log.d("no",api_county)
+                _locations.value = AmphibianApi.retrofitService.getData()
                 var res: MutableList<Amphibian> = mutableListOf()
-                for (i in temp){
+//                var res2: MutableList<Amphibian> = mutableListOf()
+                for (i in _locations.value!!){
                     if (i.province == "Texas") res += i
+//                    if (i.county == api_county && i.province == api_state) res2 += i
                 }
+//                Log.d("no2",res2.toString())
                 _amphibians.value = res
-//                _locations.value = DetailApi.retrofitService.getOneData(api_county)
+
                 _status.value = AmphibianApiStatus.DONE
             } catch (e: Exception) {
-                Log.d("error","***************************************")
                 _amphibians.value = listOf()
                 _status.value = AmphibianApiStatus.ERROR
-//                _locations.value = listOf()
+                _locations.value = listOf()
             }
         }
     }

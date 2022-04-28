@@ -32,8 +32,10 @@ import com.example.amphibians.network.Amphibian
 import com.example.amphibians.ui.AmphibianViewModel
 import java.lang.StringBuilder
 import java.util.*
+import kotlinx.coroutines.*
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.delay
 import retrofit2.http.GET
 
 
@@ -51,6 +53,7 @@ class ThirdFragment : Fragment() {
     var last_update: TextView? = null
     var client: FusedLocationProviderClient? = null
     var api_county: String = ""
+    var api_state: String = ""
 
 
     override fun onCreateView(
@@ -181,17 +184,27 @@ class ThirdFragment : Fragment() {
                                 )
                                 county!!.text = addresses.get(0).getSubAdminArea()
 
+
                                 api_county = county!!.text.toString()
                                 api_county = api_county.dropLast(7)
+                                api_state = addresses.get(0).getAdminArea()
                             }
                             catch(e: Exception){
                                 county!!.text = "Travis"
                                 api_county = "Travis"
+                                api_state = "Texas"
                             }
 
-
-                            viewModel.getAmphibianList(api_county)
-                            val temp = viewModel.amphibians.value!![0]
+//                            Log.d("api_county",api_county)
+//                            Log.d("api_state",api_state)
+                            viewModel.getAmphibianList()
+                            var res2: MutableList<Amphibian> = mutableListOf()
+                            for (i in viewModel.locations.value!!){
+                                if (i.county == api_county && i.province == api_state) res2 += i
+                            }
+//                            Log.d("res2","**************************")
+//                            Log.d("res2",res2.toString())
+                            val temp = res2[0]
                             confirmed!!.text = temp.stats.confirmed
                             deaths!!.text = temp.stats.deaths
                             last_update!!.text = temp.updatedAt
