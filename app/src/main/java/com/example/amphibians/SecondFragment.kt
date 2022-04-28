@@ -49,7 +49,7 @@ class SecondFragment : Fragment(), OnMapReadyCallback {
         googleMap?.addTileOverlay(TileOverlayOptions().tileProvider(heatMapProvider))
 
         val usLatLng = LatLng(31.000000,-100.000000)
-        googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(usLatLng, 2f))
+        googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(usLatLng, 5f))
     }
 
     private fun generateHeatMapData(): MutableList<WeightedLatLng> {
