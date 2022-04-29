@@ -262,9 +262,7 @@ class ThirdFragment : Fragment() {
                 )
             }
         }
-    fun get_api_county(): String{
-        return api_county
-    }
+
 
 
 

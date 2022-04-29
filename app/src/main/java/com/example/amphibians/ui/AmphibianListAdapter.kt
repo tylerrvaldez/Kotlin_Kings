@@ -34,7 +34,6 @@ class AmphibianListAdapter(val clickListener: AmphibianListener) :
         var binding: ListViewItemBinding
         ) : RecyclerView.ViewHolder(binding.root){
         fun bind(clickListener: AmphibianListener, amphibian: Amphibian) {
-
             binding.amphibian = amphibian
             binding.clickListener = clickListener
             binding.executePendingBindings()
@@ -62,7 +61,6 @@ class AmphibianListAdapter(val clickListener: AmphibianListener) :
 
     override fun onBindViewHolder(holder: AmphibianViewHolder, position: Int) {
         val amphibian = getItem(position)
-
         holder.bind(clickListener, amphibian)
     }
 }

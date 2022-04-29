@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -28,6 +29,7 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.amphibians.ui.AmphibianListFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.R.anim
 
 
 class MainActivity : AppCompatActivity() {
@@ -46,6 +48,32 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.second, R.id.third, R.id.amphibianListFragment))
         setupActionBarWithNavController(this, navController, appBarConfiguration);
         BottomNavigationView.setupWithNavController(navController)
+        val options = NavOptions.Builder()
+            .setLaunchSingleTop(true)
+            .setEnterAnim(R.anim.slide_in_from_top)
+            .setExitAnim(R.anim.fade_out)
+            .setPopEnterAnim(R.anim.fade_in)
+            .setPopExitAnim(R.anim.fade_out)
+            .setPopUpTo(navController.graph.startDestination, false)
+            .build()
+
+        BottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            when(item.itemId) {
+                R.id.second -> {
+                    navController.navigate(R.id.second,null,options)
+                }
+                R.id.third -> {
+                    navController.navigate(R.id.third,null,options)
+                }
+                R.id.amphibianListFragment -> {
+                    navController.navigate(R.id.amphibianListFragment,null,options)
+                }
+            }
+            true
+        }
+        BottomNavigationView.setOnNavigationItemReselectedListener { item ->
+            return@setOnNavigationItemReselectedListener
+        }
 
     }
 
