@@ -49,7 +49,15 @@
         android:id="@+id/second"
         android:name="com.example.amphibians.SecondFragment"
         android:label="Heatmap"
-        tools:layout="@layout/fragment_second"/>
+        tools:layout="@layout/fragment_second">
+        <action
+            android:id="@+id/action_secondFragment_to_amphibianDetailFragment"
+            app:destination="@id/amphibianDetailFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out"/>
+    </fragment>
 
 
     <fragment

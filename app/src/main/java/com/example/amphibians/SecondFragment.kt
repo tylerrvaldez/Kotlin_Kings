@@ -5,33 +5,45 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
 import com.example.amphibians.network.Amphibian
 import com.example.amphibians.network.AmphibianApi
 import com.example.amphibians.ui.AmphibianApiStatus
+import com.example.amphibians.ui.AmphibianListener
 import com.example.amphibians.ui.AmphibianViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.TileOverlayOptions
 import com.google.maps.android.heatmaps.HeatmapTileProvider
 import com.google.maps.android.heatmaps.WeightedLatLng
 import kotlinx.coroutines.launch
 import org.json.JSONArray
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener
+
+
+
 
 class SecondFragment : Fragment(), OnMapReadyCallback {
     private val viewModel: AmphibianViewModel by activityViewModels()
+//    var marker_1: Marker? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val mTrackView: View = inflater.inflate(R.layout.fragment_second, container, false)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment?
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
         return mTrackView
 
@@ -39,6 +51,7 @@ class SecondFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap?) {
         val data = generateHeatMapData()
+        val locations = generateMarkerData()
 
         val heatMapProvider = HeatmapTileProvider.Builder()
             .weightedData(data) // load our weighted data
@@ -46,20 +59,48 @@ class SecondFragment : Fragment(), OnMapReadyCallback {
             .maxIntensity(1000.0) // set the maximum intensity
             .build()
 
+
+        for (i in locations) {
+            googleMap!!.addMarker(
+                MarkerOptions()
+                    .position(
+                        LatLng(
+                            i.coordinates.latitude.toDouble(),
+                            i.coordinates.longitude.toDouble()
+                        )
+                    )
+                    .title(locations.indexOf(i).toString())
+                    .snippet(i.county)
+            )
+
+        }
+        googleMap?.setOnMarkerClickListener(OnMarkerClickListener { marker -> // TODO Auto-generated method stub
+            if (marker != null) {
+                Log.w("Click", marker.getSnippet())
+                    viewModel.onAmphibianClicked(locations[marker.getTitle().toInt()])
+                    findNavController()
+                        .navigate(R.id.action_secondFragment_to_amphibianDetailFragment)
+                }
+
+                return@OnMarkerClickListener true
+            }
+    )
+
+
         googleMap?.addTileOverlay(TileOverlayOptions().tileProvider(heatMapProvider))
 
-        val usLatLng = LatLng(31.000000,-100.000000)
+        val usLatLng = LatLng(31.000000, -100.000000)
         googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(usLatLng, 5f))
     }
 
     private fun generateHeatMapData(): MutableList<WeightedLatLng> {
-        var data :MutableList<WeightedLatLng> = mutableListOf()
+        var data: MutableList<WeightedLatLng> = mutableListOf()
         viewModel.getAmphibianList()
 //        Log.d("list","***************************************")
         val temp = viewModel.amphibians.value
 //        Log.d("list", temp.toString());
         if (temp != null) {
-            for (i in temp){
+            for (i in temp) {
                 if (i.coordinates.latitude != "" && i.coordinates.longitude != "") {
                     val coord = i.coordinates
                     val lat = coord.latitude.toDouble()
@@ -79,4 +120,20 @@ class SecondFragment : Fragment(), OnMapReadyCallback {
         return data
 
     }
+
+    private fun generateMarkerData(): List<Amphibian> {
+        var locations: MutableList<Amphibian> = mutableListOf()
+        viewModel.getAmphibianList()
+        val temp = viewModel.amphibians.value
+        Log.d("list", temp.toString());
+        if (temp != null) {
+            for (i in temp) {
+                if (i.coordinates.latitude != "" && i.coordinates.longitude != "") locations.add(i)
+
+            }
+        }
+        return locations
+
+    }
 }
+
