@@ -1,10 +1,16 @@
 package com.example.amphibians
 
+import android.location.Geocoder
 import android.os.Bundle
+import android.text.Html
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.RelativeSizeSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -29,9 +35,8 @@ import com.google.maps.android.heatmaps.WeightedLatLng
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener
-
-
-
+import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener
+import java.util.*
 
 class SecondFragment : Fragment(), OnMapReadyCallback {
     private val viewModel: AmphibianViewModel by activityViewModels()
@@ -59,9 +64,9 @@ class SecondFragment : Fragment(), OnMapReadyCallback {
             .maxIntensity(1000.0) // set the maximum intensity
             .build()
 
-
+        val markers = mutableListOf<Marker>()
         for (i in locations) {
-            googleMap!!.addMarker(
+            val marker = googleMap!!.addMarker(
                 MarkerOptions()
                     .position(
                         LatLng(
@@ -72,8 +77,10 @@ class SecondFragment : Fragment(), OnMapReadyCallback {
                     .title(locations.indexOf(i).toString())
                     .snippet(i.county)
             )
+            markers.add(marker)
 
         }
+
         googleMap?.setOnMarkerClickListener(OnMarkerClickListener { marker -> // TODO Auto-generated method stub
             if (marker != null) {
                 Log.w("Click", marker.getSnippet())
@@ -83,8 +90,33 @@ class SecondFragment : Fragment(), OnMapReadyCallback {
                 }
 
                 return@OnMarkerClickListener true
+            })
+
+        var api_county: String = ""
+        googleMap?.setOnMapLongClickListener(OnMapLongClickListener { latLng ->
+            for (marker in markers) {
+                if (Math.abs(marker.position.latitude - latLng.latitude) < 0.1 && Math.abs(marker.position.longitude - latLng.longitude) < 0.1) {
+                    val geocoder = Geocoder(getActivity(), Locale.getDefault())
+                    val addresses = geocoder.getFromLocation(
+                        latLng.latitude,
+                        latLng.longitude,
+                        1
+                    )
+                    try{
+                        api_county = addresses.get(0).getSubAdminArea()
+                        api_county = api_county.dropLast(7)
+
+                        Toast.makeText(this.context, Html.fromHtml("<font color='#087f23' ><b>" + api_county + "</b></arial>"), Toast.LENGTH_SHORT)
+                            .show()
+                        break
+                    }
+                    catch(e: Exception){
+                        Toast.makeText(this.context, Html.fromHtml("<font color='#087f23' ><b>" + "Preview Currently Unavailable" + "</b></arial>"), Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
             }
-    )
+        })
 
 
         googleMap?.addTileOverlay(TileOverlayOptions().tileProvider(heatMapProvider))

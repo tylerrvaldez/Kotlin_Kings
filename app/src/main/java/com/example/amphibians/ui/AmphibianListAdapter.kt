@@ -15,7 +15,9 @@
  */
 package com.example.amphibians.ui
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -30,9 +32,7 @@ import com.example.amphibians.network.Amphibian
 class AmphibianListAdapter(val clickListener: AmphibianListener) :
     ListAdapter<Amphibian, AmphibianListAdapter.AmphibianViewHolder>(DiffCallback) {
 
-    class AmphibianViewHolder(
-        var binding: ListViewItemBinding
-        ) : RecyclerView.ViewHolder(binding.root){
+    class AmphibianViewHolder(var binding: ListViewItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(clickListener: AmphibianListener, amphibian: Amphibian) {
             binding.amphibian = amphibian
             binding.clickListener = clickListener
@@ -63,6 +63,7 @@ class AmphibianListAdapter(val clickListener: AmphibianListener) :
         val amphibian = getItem(position)
         holder.bind(clickListener, amphibian)
     }
+    
 }
 
 class AmphibianListener(val clickListener: (amphibian: Amphibian) -> Unit) {

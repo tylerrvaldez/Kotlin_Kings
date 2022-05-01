@@ -15,15 +15,21 @@
  */
 package com.example.amphibians.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.example.amphibians.R
+import com.example.amphibians.bindRecyclerView
 import com.example.amphibians.databinding.FragmentAmphibianListBinding
+import kotlinx.android.synthetic.main.fragment_amphibian_list.*
 
 
 class AmphibianListFragment : Fragment() {
@@ -40,13 +46,16 @@ class AmphibianListFragment : Fragment() {
 
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
         binding.recyclerView.adapter = AmphibianListAdapter(AmphibianListener { amphibian ->
             viewModel.onAmphibianClicked(amphibian)
             findNavController()
                 .navigate(R.id.action_amphibianListFragment_to_amphibianDetailFragment)
         })
 
+
         // Inflate the layout for this fragment
         return binding.root
     }
+
 }
